@@ -1,5 +1,5 @@
-import CardsList from "./components/cards-list";
-import useEffect from "react";
+import { CardsList } from "./components/cards-list";
+import { useEffect,useState } from "react";
 import "./App.css";
 
 export const App = () => {
@@ -14,13 +14,13 @@ export const App = () => {
   };
 
   const handleCardsRequest = (deckId) => {
-    fetch("https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=52")
+    fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=52`)
       .then((res) => res.json())
       .then((res) => setCardsList([...res.cards]));
   };
 
   const handleShowDeck = () => {
-    setShowDeck(false);
+    setShowDeck(true);
   };
 
   useEffect(() => {
@@ -29,7 +29,7 @@ export const App = () => {
 
   useEffect(() => {
     if (deck) handleCardsRequest(deck);
-  }, []);
+  }, [deck]);
 
   return (
     <div className="main-container">
@@ -37,7 +37,7 @@ export const App = () => {
       <button onChange={handleShowDeck} className="new-deck-button">
         Novo baralho
       </button>
-      {ShowDeck & <CardsList cardsList={cardsList} />}
+      {!showDeck && <CardsList cardsList={cardsList} />}
     </div>
   );
 };

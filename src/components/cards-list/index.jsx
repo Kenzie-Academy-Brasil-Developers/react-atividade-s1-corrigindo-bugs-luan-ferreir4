@@ -1,16 +1,19 @@
 import { useState } from "react";
-import  Card from "../card";
+import Card from "../card";
 import "./style.css";
 
 export const CardsList = ({ cardsList }) => {
-  const [suitFilter, setSuitFilter] = useState(false);
+
+  const [suitFilter, setSuitFilter] = useState('');
+  const [isFiltered, setIsFiltered] = useState(false);
 
   const handleSuitFilter = (e) => {
-    if (e.target.id === suitFilter) {
-      setSuitFilter(true);
-      e.target.checked = false;
-    } else {
+    if (e.target.checked) {
       setSuitFilter(e.target.id);
+      setIsFiltered(true);
+    } else {
+      setSuitFilter('');
+      setIsFiltered(false);
     }
   };
 
@@ -46,19 +49,17 @@ export const CardsList = ({ cardsList }) => {
         <label for="DIAMONDS">Ouros</label>
       </div>
 
-      
-        {!suitFilter &&
+      <div className='cardsContainer'>
+        {!isFiltered &&
           cardsList.map((actual, index) => {
-            return <Card card={actual} key={index} />;
-          })}
-
-        {suitFilter &&
+          return <Card card={actual} key={index} />;
+          })
+        } 
+        {isFiltered &&
           cardsList
             .filter((actual) => actual.suit === suitFilter)
-            .map((actual, index) => {
-              <Card card={actual} key={index} />;
-            })}
-      
+            .map((actual, index) => <Card card={actual} key={index} />)}
+      </div>
     </div>
   );
 };

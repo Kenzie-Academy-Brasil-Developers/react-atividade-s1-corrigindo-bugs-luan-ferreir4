@@ -10,13 +10,13 @@ export const App = () => {
   const handleDeckRequest = () => {
     fetch("https://deckofcardsapi.com/api/deck/new/")
       .then((res) => res.json())
-      .then((res) => console.log(res));
+      .then((res) => setDeck(res.deck_id));
   };
 
   const handleCardsRequest = (deckId) => {
     fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=52`)
       .then((res) => res.json())
-      .then((res) => setCardsList([...res.cards]));
+      .then((res) => setCardsList(res.cards));
   };
 
   const handleShowDeck = () => {
@@ -25,19 +25,21 @@ export const App = () => {
 
   useEffect(() => {
     handleDeckRequest();
-  }, [deck]);
+  }, []);
 
   useEffect(() => {
-    if (deck) handleCardsRequest(deck);
+    if (deck) {
+      handleCardsRequest(deck);
+    }
   }, [deck]);
 
   return (
     <div className="main-container">
       <h1 className="main-title">Debugue para ver o baralho</h1>
-      <button onChange={handleShowDeck} className="new-deck-button">
+      <button onClick={handleShowDeck} className="new-deck-button">
         Novo baralho
       </button>
-      {!showDeck && <CardsList cardsList={cardsList} />}
+      {showDeck && <CardsList cardsList={cardsList} />}
     </div>
   );
 };

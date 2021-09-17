@@ -35,7 +35,7 @@ export const App = () => {
 
   return (
     <div className="main-container">
-      <h1 className="main-title">Debugue para ver o baralho</h1>
+      <h1 className="main-title">Filro de cartas</h1>
       <button onClick={handleShowDeck} className="new-deck-button">
         Novo baralho
       </button>

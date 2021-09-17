@@ -18,6 +18,7 @@ export const CardsList = ({ cardsList }) => {
   };
 
   return (
+    <div className='main-container'>
     <div className="filter-container">
       <p>Filtrar por naipe</p>
       <div>
@@ -48,8 +49,8 @@ export const CardsList = ({ cardsList }) => {
         />
         <label for="DIAMONDS">Ouros</label>
       </div>
-
-      <div className='cardsContainer'>
+    </div>
+      <div className='cards-container'>
         {!isFiltered &&
           cardsList.map((actual, index) => {
           return <Card card={actual} key={index} />;
